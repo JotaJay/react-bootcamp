@@ -1,7 +1,10 @@
-import React from "react";
+import React from 'react';
+import { Route } from 'react-router-dom';
 
-function App() {
-  return <div className="App">Hello World!</div>;
-}
+import Routes from './routes';
+
+const App: React.FC = () => {
+  return <Routes />;
+};
 
 export default App;
