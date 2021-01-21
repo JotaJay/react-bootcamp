@@ -22,6 +22,12 @@
   },
   "plugins": ["react", "react-hooks", "@typescript-eslint"],
   "rules": {
+    "camelcase": "off",
+    "arrow-parens": "off",
+    "@typescript-eslint/explicit-function-return-type": [
+      "error",
+      { "allowExpressions": true }
+    ],
     "object-curly-newline": "off",
     "arrow-body-style": ["off"],
     "no-use-before-define": "off",
