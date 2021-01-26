@@ -19,19 +19,27 @@ interface Repository {
   stargazers_count: number;
 }
 
+interface Issue {
+  id: string;
+  html_url: string;
+  title: string;
+  user: { login: string };
+}
+
 const Repository: React.FC = () => {
   const { params } = useRouteMatch<QueryParams>();
   const [repository, setRepository] = useState<Repository | null>(null);
-  const [issues, Setissues] = useState('');
+  const [issues, setIssues] = useState<Issue[]>([]);
 
   useEffect(() => {
-    const result = api
-      .get<Repository>(`/repos/${params.repository}`)
-      .then(response => {
-        console.log(response.data);
-        setRepository(response.data);
-      });
+    api.get<Repository>(`/repos/${params.repository}`).then(response => {
+      setRepository(response.data);
+    });
+    api.get<Issue[]>(`/repos/${params.repository}/issues`).then(response => {
+      setIssues(response.data);
+    });
   }, [params.repository]);
+
   return (
     <>
       <Header>
@@ -67,27 +75,17 @@ const Repository: React.FC = () => {
             </ul>
           </Metrics>
           <Issues>
-            <Link key="teste" to="/repositories">
-              <div>
-                <strong>issue</strong>
-                <p>Issue description</p>
-              </div>
-              <FiChevronRight size={20} />
-            </Link>
-            <Link key="teste" to="/repositories">
-              <div>
-                <strong>issue</strong>
-                <p>Issue description</p>
-              </div>
-              <FiChevronRight size={20} />
-            </Link>
-            <Link key="teste" to="/repositories">
-              <div>
-                <strong>issue</strong>
-                <p>Issue description</p>
-              </div>
-              <FiChevronRight size={20} />
-            </Link>
+            {issues.map(issue => {
+              return (
+                <a key={issue.id} href={issue.html_url}>
+                  <div>
+                    <strong>{issue.title}</strong>
+                    <p>{issue.user.login}</p>
+                  </div>
+                  <FiChevronRight size={20} />
+                </a>
+              );
+            })}
           </Issues>
         </>
       )}
