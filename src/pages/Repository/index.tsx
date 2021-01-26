@@ -1,8 +1,8 @@
 import React from 'react';
 import { Link, useRouteMatch } from 'react-router-dom';
-import { FiChevronLeft } from 'react-icons/fi';
+import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
 
-import { Profile, Header, Issues } from './style';
+import { Profile, Header, Metrics, Issues } from './style';
 import logo from '../../assets/logo.svg';
 
 interface QueryParams {
@@ -15,10 +15,10 @@ const Repository: React.FC = () => {
     <>
       <Header>
         <img src={logo} alt="" />
-        <a href="/">
-          <FiChevronLeft />
+        <Link to="/">
+          <FiChevronLeft size={16} />
           Go back
-        </a>
+        </Link>
       </Header>
       <Profile>
         <img
@@ -30,7 +30,7 @@ const Repository: React.FC = () => {
           <p>Lorem ipsum dolor sit amet.</p>
         </div>
       </Profile>
-      <Issues>
+      <Metrics>
         <ul>
           <li>
             <strong>15422</strong>
@@ -45,6 +45,29 @@ const Repository: React.FC = () => {
             <span>Issues abertas</span>
           </li>
         </ul>
+      </Metrics>
+      <Issues>
+        <Link key="teste" to="/repositories">
+          <div>
+            <strong>issue</strong>
+            <p>Issue description</p>
+          </div>
+          <FiChevronRight size={20} />
+        </Link>
+        <Link key="teste" to="/repositories">
+          <div>
+            <strong>issue</strong>
+            <p>Issue description</p>
+          </div>
+          <FiChevronRight size={20} />
+        </Link>
+        <Link key="teste" to="/repositories">
+          <div>
+            <strong>issue</strong>
+            <p>Issue description</p>
+          </div>
+          <FiChevronRight size={20} />
+        </Link>
       </Issues>
     </>
   );
